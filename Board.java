@@ -116,6 +116,8 @@ public class Board {
 		board[row][7] = null;
 		board[row][5].move(5, row);
 		board[row][6].move(6, row);
+  		board[row][5].actuallyMoved();
+		board[row][6].actuallyMoved();
 		whiteXPos = row == 7 ? 6 : whiteXPos;
 		blackXPos = row == 7 ? blackXPos : 6;
 		return true;
@@ -140,6 +142,8 @@ public class Board {
 			board[row][0] = null;
 			board[row][2].move(2, row);
 			board[row][3].move(3, row);
+         board[row][2].actuallyMoved();
+			board[row][3].actuallyMoved();
 			whiteXPos = row == 7 ? 2 : whiteXPos;
 			blackXPos = row == 7 ? blackXPos : 2;
 			return true;
@@ -190,7 +194,6 @@ public class Board {
 			}
 		}
 		if (board[destY][destX] != null && board[destY][destX].toString().startsWith("K") && makeMove) {
-			King k = (King) board[startY][startX];
 			if (isWhite) {
 				whiteXPos = destX;
 				whiteYPos = destY;
@@ -201,7 +204,9 @@ public class Board {
 		}		
 		if (!makeMove) {
 			reverseMove(taken, startX, startY, destX, destY);
-		}
+		} else {
+         board[destY][destX].actuallyMoved();
+      }
 		return true;
 	}
 	

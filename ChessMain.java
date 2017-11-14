@@ -39,6 +39,7 @@ public class ChessMain {
 			moved = true;
 			String dest = null;
 			if (start.equals("K")) {
+				System.out.println("castling");
 				castled = b.castle("K", isWhite);
 			} else if (start.equals("Q")) {
 				castled = b.castle("Q", isWhite);

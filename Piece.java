@@ -8,14 +8,18 @@ public class Piece {
 	protected int y;
 	
 	public Piece(boolean isWhite, String name, int xPos, int yPos) {
+		this.hasMoved = false;
 		this.isWhite = isWhite;
 		this.name = name;
 		this.x = xPos;
 		this.y = yPos;
 	}
 	
+   public void actuallyMoved() {
+      hasMoved = true;
+   }
+   
 	public void move(int newX, int newY) {
-		hasMoved = true;
 		this.x = newX;
 		this.y = newY;
 	}
