@@ -15,9 +15,9 @@ public class Piece {
 		this.y = yPos;
 	}
 	
-   public void actuallyMoved() {
-      hasMoved = true;
-   }
+   	public void actuallyMoved() {
+      		hasMoved = true;
+   	}
    
 	public void move(int newX, int newY) {
 		this.x = newX;
