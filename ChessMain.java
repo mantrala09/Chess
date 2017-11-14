@@ -12,20 +12,27 @@ public class ChessMain {
 		b.printBoard();
 		System.out.println("To castle kingside, enter K.");
 		System.out.println("To castle queenside, enter Q");
-		while(true) {
-			onePlayerMoves("Player 1:", scan, b, true);
-			onePlayerMoves("Player 2:", scan, b, false);
-			b.printBoard();
+		boolean someoneCheckmated = false;
+		while(!someoneCheckmated) {
+			if (onePlayerMoves("Player 1", scan, b, true)) {
+				break;
+			}
+			if (onePlayerMoves("Player 2", scan, b, false)) {
+				break;
+			}
+
 		}
 	}
 	
-	public static void onePlayerMoves(String player, Scanner scan, Board b, boolean isWhite) {
+	// Represents one player's move. Returns true if the move results in a checkmate for the 
+	// opposing player. 
+	public static boolean onePlayerMoves(String player, Scanner scan, Board b, boolean isWhite) {
 		boolean castled = true;
 		boolean moved = true;
 		boolean badArguments = false;
 		boolean notValidMove = true;
 		while (notValidMove) {
-			System.out.println(player);
+			System.out.println(player + ":");
 			System.out.print("Enter coordinates of moving piece: ");
 			String start = scan.next();
 			castled = true;
@@ -51,6 +58,11 @@ public class ChessMain {
 			}
 
 		}
+		if (b.checkForCheckMate(!isWhite)) {
+			System.out.println(player + " wins by checkmate! Good game!");
+			return true;
+		}
+		return false;
 	}
 	
 	
