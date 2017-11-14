@@ -205,8 +205,8 @@ public class Board {
 		if (!makeMove) {
 			reverseMove(taken, startX, startY, destX, destY);
 		} else {
-         board[destY][destX].actuallyMoved();
-      }
+         		board[destY][destX].actuallyMoved();
+      		}
 		return true;
 	}
 	
