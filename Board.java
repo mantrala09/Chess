@@ -1,14 +1,19 @@
 import java.util.HashSet;
 import java.util.Set;
 
+
+// Represents the game state of a game of chess
 public class Board {
 
 	private Piece[][] board = new Piece[8][8];
 	
+	// Represent the x, y position of the white and black kings
 	private int whiteXPos;
 	private int whiteYPos;
 	private int blackXPos;
 	private int blackYPos;
+	
+	
 	private Set<Piece> blackPieces;
 	private Set<Piece> whitePieces;
 
@@ -43,6 +48,8 @@ public class Board {
 		board[7][2] = new Bishop(true, 2, 7);
 		board[7][5] = new Bishop(true, 5, 7);
 		board[7][3] = new Queen(true, 3, 7);
+		
+		// Add the pieces to their respectively colored sets
 		for (int i = 0; i < board.length; i++) {
 			for (int j = 0; j < board.length; j++) {
 				if (board[i][j] != null) {
@@ -56,13 +63,14 @@ public class Board {
 		}
 	}
 
+	
+	// Prints to the console the current state of the game
 	public void printBoard() {
 		 System.out.print("  ");
 		  for (int x = 0; x < 41; x++) {
 			  System.out.print("-");
 		  }
 		  System.out.println();
-		  
 		  for (int i = 0; i < board.length; i++) {
 			  System.out.print(board.length-(i)+" ");
 			  System.out.print("| ");
@@ -85,6 +93,8 @@ public class Board {
 		  System.out.println("     a    b    c    d    e    f    g    h");
 	}
 	
+	
+	// Returns true if the given castle is successful, false otherwise.
 	public boolean castle(String side, boolean isWhite) {
 		if (side.equals("K") && isWhite) {
 			return castleKingside(7);
@@ -97,6 +107,8 @@ public class Board {
 		}
 	}
 	
+	
+	// Attempts a kingside castle, returning true if successful
 	public boolean castleKingside(int row) {	
 		if (board[row][6] != null || board[row][5] != null
 				|| board[row][4].hasMoved() || board[row][7].hasMoved()) {
@@ -124,6 +136,7 @@ public class Board {
 	
 	}
 	
+	// Attempts a queenside castle, returning true if successful
 	public boolean castleQueenside(int row) {
 		if (board[row][1] != null || board[row][2] != null || board[row][3] != null
 				|| board[row][0].hasMoved() || board[row][4].hasMoved()) {
@@ -150,6 +163,9 @@ public class Board {
 		}
 	}
 
+	// Attempts to move the specified piece as given by the user. Returns
+	// true if the move was successful and executes the move, returns false
+	// otherwise.
 	public boolean move(String start, String dest, boolean isWhite) {
 		int startX = getX(start.charAt(0));
 		int startY = board.length - (Integer.parseInt("" + start.charAt(1)));
@@ -167,13 +183,11 @@ public class Board {
 
 	}
 	
+	
+	// Returns true if the given move does not cause check and is valid.
 	private boolean notCausingCheck(int startX, int startY, int destX, int destY, boolean isWhite, boolean makeMove) {
 		int kingX = isWhite ? whiteXPos : blackXPos;
 		int kingY = isWhite ? whiteYPos : blackYPos;
-		if (board[startY][startX] != null && board[startY][startX].toString().startsWith("K")) {
-			kingX = destX;
-			kingY = destY;
-		}
 		Piece taken = board[destY][destX];
 		board[destY][destX] = board[startY][startX];
 		board[startY][startX] = null;		
@@ -210,6 +224,8 @@ public class Board {
 		return true;
 	}
 	
+	
+	// Reverses the last move done
 	private void reverseMove(Piece taken, int startX, int startY, int destX, int destY) {
 		if (taken != null && taken.isWhite) {
 			whitePieces.add(taken);

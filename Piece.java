@@ -1,4 +1,5 @@
 
+// Represents a piece on the chessboard
 public class Piece {
 	
 	protected boolean isWhite;
@@ -16,7 +17,7 @@ public class Piece {
 	}
 	
    	public void actuallyMoved() {
-      		hasMoved = true;
+      	hasMoved = true;
    	}
    
 	public void move(int newX, int newY) {
